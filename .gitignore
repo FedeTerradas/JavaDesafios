@@ -19,6 +19,12 @@
 *.tar.gz
 *.rar
 
+# NetBeans
+/nbproject/private/
+/build/
+/dist/
+*.class
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
@@ -29,3 +35,4 @@ replay_pid*
 /Desafio9/build/
 /Desafio9Swing/nbproject/private/
 /Desafio9Swing/build/
+/Desafio10Swing2/nbproject/private/
