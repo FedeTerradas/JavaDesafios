@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-impl" default="jar" basedir="..">
+  <property file="nbproject/project.properties"/>
+
+  <target name="init">
+    <mkdir dir="${build.classes.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+           includeantruntime="false"
+           release="${javac.release}"
+           encoding="${source.encoding}">
+      <classpath>
+        <pathelement location="${javac.classpath}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <mkdir dir="${dist.dir}"/>
+    <manifest file="${build.dir}/manifest.mf">
+      <attribute name="Manifest-Version" value="1.0"/>
+      <attribute name="Main-Class" value="${main.class}"/>
+      <attribute name="Class-Path" value="lib/mysql-connector-j-9.5.0.jar"/>
+    </manifest>
+    <jar destfile="${dist.jar}" basedir="${build.classes.dir}" manifest="${build.dir}/manifest.mf"/>
+    <mkdir dir="${dist.dir}/lib"/>
+    <copy file="${lib.dir}/mysql-connector-j-9.5.0.jar" todir="${dist.dir}/lib" failonerror="false"/>
+  </target>
+
+  <target name="run" depends="compile">
+    <java classname="${main.class}" fork="true">
+      <classpath>
+        <pathelement location="${build.classes.dir}"/>
+        <pathelement location="${lib.dir}/mysql-connector-j-9.5.0.jar"/>
+      </classpath>
+    </java>
+  </target>
+</project>
